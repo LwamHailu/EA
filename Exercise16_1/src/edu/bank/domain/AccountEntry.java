@@ -9,7 +9,7 @@ import javax.persistence.Id;
 public class AccountEntry {
 	@Id
 	@GeneratedValue
-	private int id;
+	 private int id;
 	private Date date;
 	private double amount;
 	private String description;

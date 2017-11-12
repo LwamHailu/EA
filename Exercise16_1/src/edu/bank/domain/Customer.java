@@ -3,17 +3,19 @@ package edu.bank.domain;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
-
+import javax.persistence.Table;
 
 @Entity
-public class Customer  {
+@Table(name="Customer_Table")
+public class Customer {
 	@Id
 	@GeneratedValue
-	long customerId;
-	
-//    @Column(name="name")
+	 private int id;
+//	@OneToMany(mappedBy="customer", cascade={CascadeType.ALL})
+//	Collection<Account> entryList = new ArrayList<Account>();
 	private String name;
 	public Customer(){
+		
 	}
 	
 	public Customer(String name) {
