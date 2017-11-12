@@ -1,37 +1,50 @@
 package edu.bank.dao;
+
 import java.util.Collection;
-import java.util.List;
 
 import org.hibernate.Query;
 import org.hibernate.SessionFactory;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import edu.bank.domain.Account;
 
-
-
 public class AccountDAO implements IAccountDAO {
-	
-	private SessionFactory sf= HibernateUtil.getSessionFactory();
 
+	private SessionFactory sessionFactory;
+
+	@Transactional(propagation = Propagation.REQUIRED)
 	public void saveAccount(Account account) {
 
-		sf.getCurrentSession().save(account);
+		sessionFactory.getCurrentSession().save(account);
 	}
 
+	@Transactional(propagation = Propagation.REQUIRED)
 	public void updateAccount(Account account) {
-	
-		sf.getCurrentSession().saveOrUpdate(account);
+
+		sessionFactory.getCurrentSession().saveOrUpdate(account);
 
 	}
 
+	public SessionFactory getSessionFactory() {
+		return sessionFactory;
+	}
+
+	public void setSessionFactory(SessionFactory sessionFactory) {
+		this.sessionFactory = sessionFactory;
+	}
+
+	@Transactional(propagation = Propagation.REQUIRED)
 	public Account loadAccount(long accountnumber) {
-		 return (Account)sf.getCurrentSession().load(Account.class, accountnumber);
+		return (Account) sessionFactory.getCurrentSession().load(Account.class, accountnumber);
+
 	}
 
+	@Transactional(propagation = Propagation.REQUIRED)
 	@SuppressWarnings("unchecked")
-	public Collection<Account> getAccounts() {		
-		Query query = sf.getCurrentSession().createQuery("From Account");
+	public Collection<Account> getAccounts() {
+		Query query = sessionFactory.getCurrentSession().createQuery("From Account");
 		return query.list();
-		}
+	}
 
 }

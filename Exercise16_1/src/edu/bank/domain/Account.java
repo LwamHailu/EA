@@ -10,21 +10,20 @@ import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import javax.persistence.Table;
 
 @Entity
-@Table(name="Account_Table")
+
 public class Account {
 	@Id
 	long accountnumber;
 	@OneToMany(cascade=CascadeType.ALL,fetch = FetchType.EAGER)//, fetch = FetchType.EAGER)
+	
 	Collection<AccountEntry> entryList = new ArrayList<AccountEntry>();
 	
-	@OneToOne(cascade=CascadeType.ALL)
+	@OneToOne(cascade=CascadeType.ALL,fetch = FetchType.EAGER)
     Customer customer;
 	
 	public Account (){
-		
 	}
 	public Account (long accountnr){
 		this.accountnumber = accountnr;
